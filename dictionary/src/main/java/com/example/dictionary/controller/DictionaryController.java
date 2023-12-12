@@ -125,4 +125,24 @@ public class DictionaryController {
         logger.info(message);
         return entry;
     }
+    @GetMapping("/getWordsEndingWith/{value}")
+    public List<Entry> getWordsEndingWith(@PathVariable String value) throws WordNotFoundException {
+
+        StopWatch sw = new StopWatch();
+        sw.start();
+        List<Entry> entries = this.dictionaryService.getWordsEndingWith(value);
+        sw.stop();
+
+        long nanoSeconds = sw.getLastTaskTimeNanos();
+        String message = new StringBuilder("Retrieved entries for words ending with [")
+                .append(value)
+                .append("] containing ")
+                .append(entries.size())
+                .append(" entries in ")
+                .append(nanoSeconds / 1000000.0)
+                .append("ms")
+                .toString();
+        logger.info(message);
+        return entries;
+    }
 }

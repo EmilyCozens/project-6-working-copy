@@ -43,4 +43,18 @@ public class AggregatorService {
 
 
     }
+    public List<Entry> getWordsEndingWithSuccessiveLetters(String chars) {
+
+        // Get words that end with the specified character
+        List<Entry> wordsThatEndWith = restClient.getWordsEndingWith(chars);
+
+        // Get words that contain successive letters
+        List<Entry> wordsThatContainSuccessiveLetters = restClient.getWordsThatContainConsecutiveLetters();
+
+        // Find common entries in both lists
+        List<Entry> common = new ArrayList<>(wordsThatEndWith);
+        common.retainAll(wordsThatContainSuccessiveLetters);
+
+        return common;
+    }
 }
